@@ -1,20 +1,34 @@
+/* eslint-disable no-console */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable quotes */
 /* eslint-disable prefer-const */
 
-// function Players(player) {
-//   return { player };
-// }
-// const player1 = Players();
-// const player2 = Players();
 const Players = (() => {
-  const playersForm = document.querySelector(".playersForm");
-  playersForm.addEventListener("submit", (e) => {
+  let i = 1;
+  let player1Name;
+  let player2Name;
+
+  const getPlayerNames = document.querySelector(".playersForm");
+  getPlayerNames.addEventListener("submit", (e) => {
     e.preventDefault();
+    const getPlayerName = document.getElementById("playerName");
+    const playerNameLabel = document.getElementById("playerNameLabel");
+
+    if (i < 2) {
+      player1Name = getPlayerName.value;
+      i++;
+      getPlayerName.value = "";
+      playerNameLabel.textContent = "Player 2 Name";
+    } else {
+      player2Name = getPlayerName.value;
+      getPlayerNames.remove();
+    }
   });
-  return { playersForm };
+  const player1 = () => player1Name;
+  const player2 = () => player2Name;
+  return { player1, player2 };
 })();
 
 const Gameboard = (() => {
